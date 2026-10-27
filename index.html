@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="data:," />
+    <title>Anthem Gym — Train Hard. Stay Humble.</title>
+    <meta name="description" content="Anthem Gym — premium strength, cardio and functional training with certified coaches, smart workout plans and flexible memberships." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#0b0b0d; --bg2:#121215; --card:#17171b; --card2:#1d1d22;
+        --ink:#f5f3ee; --muted:#a7a49c; --line:rgba(245,243,238,.12);
+        --accent:#ff5a1f; --accent2:#ffb01f; --accent-ink:#160a04;
+        --shadow:0 24px 60px rgba(0,0,0,.5);
+        --radius:18px;
+      }
+      @media (prefers-color-scheme: light){
+        :root{
+          --bg:#f4f1ea; --bg2:#ece8df; --card:#ffffff; --card2:#f7f4ee;
+          --ink:#17150f; --muted:#5d594f; --line:rgba(23,21,15,.14);
+          --shadow:0 24px 50px rgba(60,45,20,.16);
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{
+        margin:0; background:var(--bg); color:var(--ink);
+        font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+        line-height:1.55; overflow-x:hidden;
+        -webkit-font-smoothing:antialiased;
+      }
+      img{max-width:100%; display:block}
+      a{color:inherit}
+      .wrap{max-width:1200px; margin:0 auto; padding:0 20px}
+      .display{font-family:"Anton",Impact,sans-serif; font-weight:400; letter-spacing:.01em; text-transform:uppercase; line-height:.98}
+      .accent{color:var(--accent)}
+      .btn{
+        display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer;
+        font:700 15px/1 "Inter",sans-serif; text-decoration:none;
+        padding:16px 28px; border-radius:999px;
+        background:linear-gradient(120deg,var(--accent),var(--accent2));
+        color:var(--accent-ink);
+        box-shadow:0 12px 30px rgba(255,90,31,.35);
+        transition:transform .25s ease, box-shadow .25s ease;
+      }
+      .btn:hover{transform:translateY(-2px); box-shadow:0 18px 38px rgba(255,90,31,.45)}
+      .btn.ghost{
+        background:transparent; color:var(--ink); border:1.5px solid var(--line);
+        box-shadow:none; backdrop-filter:blur(4px);
+      }
+      .btn.ghost:hover{border-color:var(--accent); color:var(--accent)}
+      .tag{
+        display:inline-block; font:700 11px/1 "Inter",sans-serif; letter-spacing:.22em;
+        text-transform:uppercase; color:var(--accent);
+        border:1px solid rgba(255,90,31,.45); padding:8px 14px; border-radius:999px;
+        background:rgba(255,90,31,.08);
+      }
+      section{padding:96px 0}
+      .sec-head{max-width:720px; margin-bottom:48px}
+      .sec-head h2{font-size:clamp(34px,5vw,56px); margin:16px 0 12px}
+      .sec-head p{color:var(--muted); font-size:17px; margin:0}
+
+      /* ---------- NAV ---------- */
+      header{
+        position:fixed; inset:0 0 auto 0; z-index:60;
+        transition:background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
+        border-bottom:1px solid transparent;
+      }
+      header.scrolled{background:color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter:blur(14px); border-color:var(--line)}
+      .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:16px 0}
+      .logo{display:flex; align-items:center; gap:11px; text-decoration:none}
+      .logo-mark{
+        width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+        background:linear-gradient(135deg,var(--accent),var(--accent2));
+        color:var(--accent-ink); font-family:"Anton",sans-serif; font-size:22px;
+        transform:rotate(-6deg); box-shadow:0 10px 24px rgba(255,90,31,.4);
+      }
+      .logo b{font-family:"Anton",sans-serif; font-weight:400; font-size:22px; letter-spacing:.06em}
+      .logo small{display:block; font:600 9px/1 "Inter",sans-serif; letter-spacing:.34em; color:var(--muted)}
+      .nav-links{display:flex; gap:30px; align-items:center}
+      .nav-links a{text-decoration:none; font-weight:600; font-size:14.5px; color:var(--muted)}
+      .nav-links a:hover{color:var(--ink)}
+      .nav-cta{padding:12px 22px; font-size:14px}
+      .burger{display:none; background:none; border:0; cursor:pointer; padding:8px}
+      .burger span{display:block; width:26px; height:2.5px; background:var(--ink); margin:6px 0; border-radius:2px; transition:.3s}
+      @media (max-width:860px){
+        .nav-links{
+          position:absolute; top:100%; left:0; right:0; flex-direction:column; align-items:flex-start;
+          gap:0; padding:8px 20px 18px; background:var(--bg2); border-bottom:1px solid var(--line);
+          display:none;
+        }
+        .nav-links.open{display:flex}
+        .nav-links a{padding:12px 0; width:100%; border-bottom:1px solid var(--line); color:var(--ink)}
+        .nav-links a:last-child{border:0}
+        .burger{display:block}
+        .nav-cta{display:none}
+      }
+
+      /* ---------- HERO (3D) ---------- */
+      .hero{
+        position:relative; min-height:100svh; display:flex; align-items:center;
+        padding:140px 0 90px; overflow:hidden; isolation:isolate;
+        background:var(--bg);
+      }
+      .hero-bg{
+        position:absolute; inset:-6%; z-index:-3;
+        background:url("img1.jpg") center/cover no-repeat;
+        will-change:transform;
+      }
+      .hero-bg::after{
+        content:""; position:absolute; inset:0;
+        background:linear-gradient(100deg, rgba(5,5,7,.92) 30%, rgba(5,5,7,.55) 62%, rgba(5,5,7,.25)),
+                   linear-gradient(to top, var(--bg) 2%, transparent 40%);
+      }
+      .hero-glow{
+        position:absolute; width:560px; height:560px; border-radius:50%; z-index:-2;
+        background:radial-gradient(circle, rgba(255,90,31,.34), transparent 65%);
+        top:-120px; right:-80px; filter:blur(10px); pointer-events:none;
+      }
+      .hero-word{
+        position:absolute; z-index:-1; left:50%; top:56%; transform:translate(-50%,-50%);
+        font-family:"Anton",sans-serif; font-size:clamp(120px,24vw,340px); letter-spacing:.02em;
+        color:transparent; -webkit-text-stroke:1.5px rgba(245,243,238,.14);
+        white-space:nowrap; pointer-events:none; user-select:none;
+      }
+      .hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center; width:100%}
+      .hero h1{font-size:clamp(44px,11.5vw,108px); margin:22px 0 18px; color:#fff}
+      .hero h1 .stroke{color:transparent; -webkit-text-stroke:2px #fff}
+      .hero p.lede{color:rgba(245,243,238,.82); font-size:clamp(16px,2vw,19px); max-width:520px; margin:0 0 32px}
+      .hero-actions{display:flex; gap:14px; flex-wrap:wrap}
+      .hero-actions .btn.ghost{color:#fff; border-color:rgba(255,255,255,.35)}
+      .hero-actions .btn.ghost:hover{color:var(--accent2); border-color:var(--accent2)}
+      .hero-stats{display:flex; gap:34px; margin-top:46px; flex-wrap:wrap}
+      .hero-stats .num{font-family:"Anton",sans-serif; font-size:34px; color:#fff}
+      .hero-stats .num em{font-style:normal; color:var(--accent)}
+      .hero-stats small{display:block; color:rgba(245,243,238,.65); font-weight:600; font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin-top:2px}
+
+      .hero-stage{perspective:1200px; display:flex; justify-content:center}
+      .hero-card{
+        position:relative; width:min(400px,88vw); aspect-ratio:4/5; border-radius:26px;
+        transform-style:preserve-3d; will-change:transform;
+        box-shadow:0 40px 90px rgba(0,0,0,.6);
+      }
+      .hero-card img{width:100%; height:100%; object-fit:cover; border-radius:26px}
+      .hero-card::before{
+        content:""; position:absolute; inset:0; border-radius:26px; z-index:2;
+        background:linear-gradient(to top, rgba(5,5,7,.72), transparent 46%);
+        pointer-events:none;
+      }
+      .hero-card .cap{
+        position:absolute; left:20px; bottom:18px; z-index:3; color:#fff;
+        transform:translateZ(46px);
+      }
+      .hero-card .cap b{font-family:"Anton",sans-serif; font-weight:400; font-size:24px; letter-spacing:.04em; display:block}
+      .hero-card .cap span{color:rgba(255,255,255,.75); font-size:13.5px; font-weight:600}
+      .chip{
+        position:absolute; z-index:4; display:flex; align-items:center; gap:10px;
+        background:rgba(14,14,17,.82); backdrop-filter:blur(10px); color:#fff;
+        border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:11px 15px;
+        font-size:13px; font-weight:700; box-shadow:0 16px 40px rgba(0,0,0,.45);
+        transform:translateZ(70px);
+      }
+      .chip svg{flex:none}
+      .chip small{display:block; font-weight:600; color:rgba(255,255,255,.6); font-size:11px}
+      .chip.one{top:26px; left:-14px}
+      .chip.two{bottom:64px; right:-14px; max-width:230px}
+      @media (max-width:960px){
+        .hero-grid{grid-template-columns:1fr}
+        .hero-stage{order:-1}
+        .hero-card{width:min(340px,84vw)}
+        .chip.one{left:-6px}.chip.two{right:-6px}
+        .hero{padding-top:120px}
+      }
+
+      /* ---------- MARQUEE ---------- */
+      .marquee{
+        overflow:hidden; border-block:1px solid var(--line); background:var(--bg2);
+        padding:16px 0; transform:rotate(-1.2deg) scale(1.02); margin:-6px 0;
+      }
+      .marquee-track{display:flex; gap:0; width:max-content; animation:scrollX 26s linear infinite}
+      .marquee span{
+        font-family:"Anton",sans-serif; font-size:20px; letter-spacing:.08em; text-transform:uppercase;
+        padding:0 22px; white-space:nowrap; display:flex; align-items:center; gap:44px;
+      }
+      .marquee i{font-style:normal; color:var(--accent)}
+      @keyframes scrollX{to{transform:translateX(-50%)}}
+
+      /* ---------- REVEAL ---------- */
+      .reveal{opacity:0; transform:translateY(34px) rotateX(6deg); transform-origin:top center; transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+      .reveal.in{opacity:1; transform:none}
+
+      /* ---------- ZONES / 3D CARDS ---------- */
+      .cards3d{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; perspective:1400px}
+      @media (max-width:960px){.cards3d{grid-template-columns:1fr 1fr}}
+      @media (max-width:620px){.cards3d{grid-template-columns:1fr}}
+      .tilt{
+        position:relative; border-radius:var(--radius); overflow:hidden; background:var(--card);
+        border:1px solid var(--line); transform-style:preserve-3d; will-change:transform;
+        transition:box-shadow .3s ease; min-height:340px; display:flex; align-items:flex-end;
+      }
+      .tilt img.bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s ease}
+      .tilt:hover img.bg{transform:scale(1.07)}
+      .tilt .shade{position:absolute; inset:0; background:linear-gradient(to top, rgba(5,5,7,.9) 8%, rgba(5,5,7,.25) 55%, transparent)}
+      .tilt .body{position:relative; padding:24px; color:#fff; transform:translateZ(34px)}
+      .tilt .body h3{font-family:"Anton",sans-serif; font-weight:400; font-size:27px; letter-spacing:.03em; margin:0 0 6px}
+      .tilt .body p{margin:0; color:rgba(255,255,255,.78); font-size:14.5px}
+      .tilt .pill{
+        position:absolute; top:16px; left:16px; z-index:2; transform:translateZ(40px);
+        background:rgba(10,10,12,.7); backdrop-filter:blur(6px); color:#fff;
+        font:700 11px/1 "Inter",sans-serif; letter-spacing:.14em; text-transform:uppercase;
+        padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.2);
+      }
+      .glare{
+        position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0; transition:opacity .3s;
+        background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%), rgba(255,255,255,.22), transparent 45%);
+      }
+      .tilt:hover .glare{opacity:1}
+
+      /* ---------- WHY ---------- */
+      .why{background:var(--bg2); border-block:1px solid var(--line)}
+      .why-grid{display:grid; grid-template-columns:1fr 1fr; gap:54px; align-items:center}
+      @media (max-width:900px){.why-grid{grid-template-columns:1fr}}
+      .why-photo{perspective:1100px}
+      .why-photo .frame{
+        border-radius:24px; overflow:hidden; transform-style:preserve-3d; will-change:transform;
+        box-shadow:var(--shadow); position:relative;
+      }
+      .why-photo img{width:100%; height:520px; object-fit:cover}
+      .why-photo .float-card{
+        position:absolute; right:18px; bottom:18px; background:rgba(12,12,15,.86); backdrop-filter:blur(10px);
+        color:#fff; border:1px solid rgba(255,255,255,.16); border-radius:16px; padding:16px 20px;
+        transform:translateZ(50px);
+      }
+      .why-photo .float-card b{font-family:"Anton",sans-serif; font-weight:400; font-size:30px; color:var(--accent2)}
+      .why-photo .float-card span{display:block; font-size:12.5px; color:rgba(255,255,255,.7); font-weight:600}
+      .feat{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:30px}
+      @media (max-width:560px){.feat{grid-template-columns:1fr}}
+      .feat .f{
+        background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px;
+        transition:transform .3s ease, border-color .3s ease;
+      }
+      .feat .f:hover{transform:translateY(-4px); border-color:rgba(255,90,31,.5)}
+      .feat .f svg{margin-bottom:10px}
+      .feat .f b{display:block; font-size:15.5px; margin-bottom:4px}
+      .feat .f p{margin:0; color:var(--muted); font-size:13.5px}
+
+      /* ---------- TRAINERS ---------- */
+      .trainer .body h3{font-size:24px}
+      .trainer .body .role{color:var(--accent2); font-weight:700; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase}
+      .trainer{min-height:420px}
+
+      /* ---------- PRICING ---------- */
+      .pricing{background:var(--bg2); border-block:1px solid var(--line)}
+      .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:stretch; perspective:1400px}
+      @media (max-width:900px){.plans{grid-template-columns:1fr; max-width:480px; margin:0 auto}}
+      .plan{
+        background:var(--card); border:1px solid var(--line); border-radius:22px; padding:32px 28px;
+        display:flex; flex-direction:column; transform-style:preserve-3d; will-change:transform;
+        transition:box-shadow .3s ease;
+      }
+      .plan.hot{
+        background:linear-gradient(160deg, #1c130c, var(--card) 55%);
+        border-color:rgba(255,90,31,.55);
+        box-shadow:0 30px 70px rgba(255,90,31,.16);
+      }
+      @media (prefers-color-scheme: light){ .plan.hot{background:linear-gradient(160deg,#fff3e8,var(--card) 55%)} }
+      .plan .pname{font:700 12px/1 "Inter",sans-serif; letter-spacing:.24em; text-transform:uppercase; color:var(--muted)}
+      .plan.hot .pname{color:var(--accent)}
+      .plan .price{font-family:"Anton",sans-serif; font-size:52px; margin:14px 0 2px}
+      .plan .price small{font-family:"Inter",sans-serif; font-size:14px; font-weight:600; color:var(--muted); letter-spacing:0}
+      .plan .per{color:var(--muted); font-size:13.5px; margin-bottom:22px}
+      .plan ul{list-style:none; margin:0 0 28px; padding:0; display:grid; gap:11px; font-size:14.5px}
+      .plan li{display:flex; gap:10px; align-items:flex-start}
+      .plan li svg{flex:none; margin-top:2px}
+      .plan li.off{color:var(--muted); text-decoration:line-through; text-decoration-color:rgba(255,90,31,.6)}
+      .plan .btn{margin-top:auto; justify-content:center}
+      .plan .btn.plain{background:var(--card2); color:var(--ink); box-shadow:none; border:1.5px solid var(--line)}
+      .plan .btn.plain:hover{border-color:var(--accent); color:var(--accent)}
+      .plan-badge{
+        align-self:flex-start; background:linear-gradient(120deg,var(--accent),var(--accent2)); color:var(--accent-ink);
+        font:800 11px/1 "Inter",sans-serif; letter-spacing:.14em; text-transform:uppercase;
+        padding:7px 12px; border-radius:999px; margin-bottom:16px;
+      }
+
+      /* ---------- BMI ---------- */
+      .bmi-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:stretch}
+      @media (max-width:860px){.bmi-grid{grid-template-columns:1fr}}
+      .panel{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:30px}
+      .field{margin-bottom:20px}
+      .field label{display:flex; justify-content:space-between; font-weight:700; font-size:14px; margin-bottom:10px}
+      .field label output{color:var(--accent); font-family:"Anton",sans-serif; font-size:18px; letter-spacing:.03em}
+      input[type=range]{width:100%; accent-color:var(--accent); height:28px; cursor:pointer}
+      .bmi-result{text-align:center; display:flex; flex-direction:column; justify-content:center}
+      .bmi-result .big{font-family:"Anton",sans-serif; font-size:clamp(64px,9vw,96px); line-height:1}
+      .bmi-result .cat{font-weight:800; font-size:18px; margin-top:8px}
+      .bmi-result p{color:var(--muted); margin:10px auto 0; max-width:380px; font-size:14.5px}
+      .bmi-scale{display:flex; gap:5px; margin-top:26px}
+      .bmi-scale div{height:10px; border-radius:99px; flex:1; opacity:.28; transition:opacity .3s}
+      .bmi-scale div.on{opacity:1}
+      .bmi-scale .u{background:#3fa7ff}.bmi-scale .n{background:#39c26d}.bmi-scale .o{background:#ffb01f}.bmi-scale .ob{background:#ff5a1f}
+      .scale-labels{display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:7px; font-weight:600}
+
+      /* ---------- SCHEDULE ---------- */
+      .schedule{background:var(--bg2); border-block:1px solid var(--line)}
+      .day-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px}
+      .day-tabs button{
+        border:1.5px solid var(--line); background:var(--card); color:var(--muted); cursor:pointer;
+        font:700 13.5px/1 "Inter",sans-serif; padding:11px 18px; border-radius:999px; transition:.25s;
+      }
+      .day-tabs button.active{background:linear-gradient(120deg,var(--accent),var(--accent2)); color:var(--accent-ink); border-color:transparent}
+      .slots{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+      @media (max-width:860px){.slots{grid-template-columns:1fr 1fr}}
+      @media (max-width:540px){.slots{grid-template-columns:1fr}}
+      .slot{
+        background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px;
+        transition:transform .3s ease, border-color .3s ease;
+      }
+      .slot:hover{transform:translateY(-4px); border-color:rgba(255,90,31,.5)}
+      .slot .time{font-family:"Anton",sans-serif; font-size:19px; color:var(--accent); letter-spacing:.03em}
+      .slot h3{margin:6px 0 4px; font-size:17px}
+      .slot p{margin:0; color:var(--muted); font-size:13.5px}
+
+      /* ---------- CTA / TRIAL ---------- */
+      .cta-band{
+        border-radius:26px; overflow:hidden; position:relative; padding:56px 40px;
+        background:linear-gradient(120deg,#ff5a1f,#ff8a1f 55%,#ffb01f); color:#1c0e02;
+      }
+      .cta-band h2{font-size:clamp(32px,5vw,52px); margin:0 0 10px}
+      .cta-band p{margin:0 0 26px; font-weight:600; max-width:560px; color:rgba(28,14,2,.78)}
+      .cta-band .btn{background:#14100b; color:#fff; box-shadow:0 16px 36px rgba(20,10,0,.35)}
+      .cta-band .btn:hover{transform:translateY(-2px)}
+      .trial{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:26px}
+      @media (max-width:860px){.trial{grid-template-columns:1fr}}
+      form.trial-form{display:grid; gap:14px}
+      form.trial-form input, form.trial-form select{
+        width:100%; padding:15px 16px; border-radius:12px; border:1.5px solid var(--line);
+        background:var(--card2); color:var(--ink); font:500 15px "Inter",sans-serif;
+      }
+      form.trial-form input:focus, form.trial-form select:focus{outline:2px solid var(--accent); outline-offset:1px}
+      .trial-note{color:var(--muted); font-size:13px; margin:0}
+      .visit{display:grid; gap:16px; align-content:start}
+      .visit .row{display:flex; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 20px}
+      .visit .row svg{flex:none; margin-top:2px}
+      .visit b{display:block; font-size:15px}
+      .visit span{color:var(--muted); font-size:14px}
+
+      footer{border-top:1px solid var(--line); padding:44px 0 30px; background:var(--bg2)}
+      .foot{display:flex; justify-content:space-between; gap:26px; flex-wrap:wrap; align-items:flex-start}
+      .foot p{color:var(--muted); font-size:13.5px; max-width:420px; margin:10px 0 0}
+      .foot nav{display:flex; gap:22px; flex-wrap:wrap}
+      .foot nav a{color:var(--muted); text-decoration:none; font-size:14px; font-weight:600}
+      .foot nav a:hover{color:var(--accent)}
+      .fineprint{margin-top:30px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12.5px; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap}
+
+      @media (prefers-reduced-motion: reduce){
+        *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important}
+        .reveal{opacity:1; transform:none}
+      }
+    </style>
+  </head>
+  <body>
+    <header id="topbar">
+      <div class="wrap nav">
+        <a class="logo" href="#top" aria-label="Anthem Gym home">
+          <span class="logo-mark">A</span>
+          <span><b>ANTHEM</b><small>FITNESS CLUB</small></span>
+        </a>
+        <nav class="nav-links" id="navLinks">
+          <a href="#zones">Training</a>
+          <a href="#trainers">Coaches</a>
+          <a href="#pricing">Membership</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#visit">Visit Us</a>
+        </nav>
+        <a class="btn nav-cta" href="#trial">Free Trial</a>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-bg" data-depth="14"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-word" data-depth="26" aria-hidden="true">ANTHEM</div>
+        <div class="wrap hero-grid">
+          <div>
+            <span class="tag">Strength · Cardio · Functional</span>
+            <h1 class="display">Train Hard.<br /><span class="stroke">Stay</span> Humble.<br />Look <span class="accent">Unstoppable.</span></h1>
+            <p class="lede">Anthem Gym is where serious training meets real coaching. World-class equipment, personalised plans and a floor that pushes you to show up — every single day.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#trial">Claim 3-Day Free Trial</a>
+              <a class="btn ghost" href="#pricing">View Memberships</a>
+            </div>
+            <div class="hero-stats">
+              <div><span class="num"><span data-count="2500">0</span><em>+</em></span><small>Active members</small></div>
+              <div><span class="num"><span data-count="40">0</span><em>+</em></span><small>Certified coaches</small></div>
+              <div><span class="num"><span data-count="120">0</span><em>+</em></span><small>Machines &amp; stations</small></div>
+            </div>
+          </div>
+          <div class="hero-stage">
+            <div class="hero-card" id="heroCard">
+              <img src="img2.jpg" alt="Athlete performing a heavy barbell clean at Anthem Gym" />
+              <div class="chip one">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff8a1f" stroke-width="2.2" stroke-linecap="round"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2z" fill="#ff8a1f" stroke="none"/></svg>
+                <span>Power Zone<small>Deadlift platforms · squat racks</small></span>
+              </div>
+              <div class="chip two">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffb01f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 12.6a8.5 8.5 0 1 1-2.5-6"/><path d="M21 3v6h-6"/></svg>
+                <span>Open 5 AM – 11 PM<small>All 7 days, even holidays</small></span>
+              </div>
+              <div class="cap"><b>NO SHORTCUTS.</b><span>Just consistent, coached effort.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track" id="marqueeTrack">
+          <span>Strength <i>✦</i> Weight Loss <i>✦</i> Muscle Gain <i>✦</i> CrossFit <i>✦</i> Personal Training <i>✦</i> Zumba <i>✦</i> Yoga <i>✦</i> Diet Plans <i>✦</i></span>
+          <span>Strength <i>✦</i> Weight Loss <i>✦</i> Muscle Gain <i>✦</i> CrossFit <i>✦</i> Personal Training <i>✦</i> Zumba <i>✦</i> Yoga <i>✦</i> Diet Plans <i>✦</i></span>
+        </div>
+      </div>
+
+      <!-- ZONES -->
+      <section id="zones">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="tag">Training Zones</span>
+            <h2 class="display">Every goal has<br />its own <span class="accent">arena</span></h2>
+            <p>Six dedicated zones under one roof — so whether you are chasing a 200&nbsp;kg deadlift or your first 5&nbsp;km run, your space is ready.</p>
+          </div>
+          <div class="cards3d">
+            <article class="tilt reveal">
+              <img class="bg" src="img3.jpg" alt="Member performing a heavy deadlift in the strength zone" loading="lazy" />
+              <span class="pill">Zone 01</span><div class="shade"></div><div class="glare"></div>
+              <div class="body"><h3>Strength &amp; Power</h3><p>Deadlift platforms, squat racks, plate-loaded machines and dumbbells up to 50&nbsp;kg.</p></div>
+            </article>
+            <article class="tilt reveal">
+              <img class="bg" src="img4.jpg" alt="Member training with battle ropes in the functional zone" loading="lazy" />
+              <span class="pill">Zone 02</span><div class="shade"></div><div class="glare"></div>
+              <div class="body"><h3>Functional &amp; CrossFit</h3><p>Battle ropes, sled track, kettlebells, boxes and rigs for high-intensity conditioning.</p></div>
+            </article>
+            <article class="tilt reveal">
+              <img class="bg" src="img5.jpg" alt="Group fitness class in session at Anthem Gym" loading="lazy" />
+              <span class="pill">Zone 03</span><div class="shade"></div><div class="glare"></div>
+              <div class="body"><h3>Group Classes</h3><p>HIIT, Zumba, yoga and spin sessions daily — energy of a team, attention of a coach.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY -->
+      <section class="why" id="why">
+        <div class="wrap why-grid">
+          <div class="why-photo reveal">
+            <div class="frame" id="whyFrame">
+              <img src="img6.jpg" alt="Inside Anthem Gym — rows of dumbbells and benches under moody lighting" loading="lazy" />
+              <div class="float-card"><b>15,000 sq.ft</b><span>of pure training space</span></div>
+            </div>
+          </div>
+          <div class="reveal">
+            <span class="tag">Why Anthem</span>
+            <h2 class="display" style="font-size:clamp(32px,4.6vw,50px); margin:16px 0 12px">Not just a gym.<br />A <span class="accent">system</span> that works.</h2>
+            <p style="color:var(--muted); font-size:16.5px; margin:0">Most people quit because they train without a plan. At Anthem, every membership starts with a fitness assessment and a structured programme — then our coaches track your progress week after week.</p>
+            <div class="feat">
+              <div class="f">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>
+                <b>Certified Coaches</b><p>40+ trainers certified in strength, conditioning and nutrition.</p>
+              </div>
+              <div class="f">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 15c3-2 5 2 8 0s5 2 8 0V5c-3 2-5-2-8 0S7 7 4 5"/></svg>
+                <b>Personalised Plans</b><p>Workout + diet plans built around your body, goal and schedule.</p>
+              </div>
+              <div class="f">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4 12L16 12h5"/></svg>
+                <b>Progress Tracking</b><p>Monthly body-composition checks so you see real, measured results.</p>
+              </div>
+              <div class="f">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <b>Steam, Shower &amp; Lockers</b><p>Full recovery and changing facilities — train before office, no problem.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRAINERS -->
+      <section id="trainers">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="tag">Meet The Coaches</span>
+            <h2 class="display">Trained by people<br />who <span class="accent">live it</span></h2>
+            <p>Our head coaches compete, certify and coach full-time. Hover a card — they are as solid as they look.</p>
+          </div>
+          <div class="cards3d">
+            <article class="tilt trainer reveal">
+              <img class="bg" src="img3.jpg" alt="Coach demonstrating a heavy deadlift" loading="lazy" />
+              <span class="pill">Head Coach</span><div class="shade"></div><div class="glare"></div>
+              <div class="body"><span class="role">Strength &amp; Powerlifting</span><h3>Team Anthem — Strength</h3><p>Competition-grade deadlift and squat coaching, from first rep to platform PRs.</p></div>
+            </article>
+            <article class="tilt trainer reveal">
+              <img class="bg" src="img4.jpg" alt="Coach training with battle ropes" loading="lazy" />
+              <span class="pill">Functional</span><div class="shade"></div><div class="glare"></div>
+              <div class="body"><span class="role">HIIT &amp; Fat Loss</span><h3>Team Anthem — Conditioning</h3><p>High-energy functional circuits engineered to burn fat and build athletic endurance.</p></div>
+            </article>
+            <article class="tilt trainer reveal">
+              <img class="bg" src="img2.jpg" alt="Coach performing an Olympic lift with a barbell" loading="lazy" />
+              <span class="pill">Olympic Lifting</span><div class="shade"></div><div class="glare"></div>
+              <div class="body"><span class="role">Muscle Gain &amp; Technique</span><h3>Team Anthem — Lifting</h3><p>Clean, snatch and hypertrophy programming with technique checks on every set.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section class="pricing" id="pricing">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="tag">Membership</span>
+            <h2 class="display">Simple pricing.<br />Serious <span class="accent">value.</span></h2>
+            <p>No hidden charges. Pause anytime, and every plan starts with a free fitness assessment and diet consultation.</p>
+          </div>
+          <div class="plans">
+            <article class="plan tilt-lite reveal">
+              <span class="pname">Monthly</span>
+              <div class="price">₹1,500<small> /month</small></div>
+              <p class="per">Perfect to start your routine</p>
+              <ul>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Full gym floor access</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Cardio + strength zones</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Locker facility</li>
+                <li class="off">Group classes</li>
+                <li class="off">Personalised diet plan</li>
+              </ul>
+              <a class="btn plain" href="#trial">Start Monthly</a>
+            </article>
+            <article class="plan hot tilt-lite reveal">
+              <span class="plan-badge">Most Popular</span>
+              <span class="pname">Quarterly</span>
+              <div class="price">₹3,999<small> /3 months</small></div>
+              <p class="per">Save 11% vs monthly — the transformation plan</p>
+              <ul>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Everything in Monthly</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>All group classes included</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Personalised diet plan</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Monthly progress tracking</li>
+                <li class="off">1-on-1 personal training</li>
+              </ul>
+              <a class="btn" href="#trial">Start Quarterly</a>
+            </article>
+            <article class="plan tilt-lite reveal">
+              <span class="pname">Annual</span>
+              <div class="price">₹11,999<small> /year</small></div>
+              <p class="per">Best value — under ₹1,000/month</p>
+              <ul>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Everything in Quarterly</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>4 personal training sessions</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Steam &amp; recovery zone</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Freeze up to 30 days</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>Bring a guest every Sunday</li>
+              </ul>
+              <a class="btn plain" href="#trial">Start Annual</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- BMI -->
+      <section id="bmi">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="tag">Know Your Start Point</span>
+            <h2 class="display">Check your <span class="accent">BMI</span> in seconds</h2>
+            <p>Drag the sliders — your Body Mass Index updates live. Bring this number to your free assessment and we will build the plan around it.</p>
+          </div>
+          <div class="bmi-grid reveal">
+            <div class="panel">
+              <div class="field">
+                <label for="hRange">Height <output id="hOut">170 cm</output></label>
+                <input type="range" id="hRange" min="120" max="210" value="170" />
+              </div>
+              <div class="field">
+                <label for="wRange">Weight <output id="wOut">70 kg</output></label>
+                <input type="range" id="wRange" min="35" max="160" value="70" />
+              </div>
+              <p class="trial-note">BMI is a general indicator for adults. Muscle mass, age and body composition matter too — our coaches measure those free with every trial.</p>
+            </div>
+            <div class="panel bmi-result">
+              <div class="big" id="bmiVal">24.2</div>
+              <div class="cat" id="bmiCat">Healthy range</div>
+              <p id="bmiTip">You are in the healthy zone. Focus on strength progression and protein intake to build lean muscle.</p>
+              <div class="bmi-scale" aria-hidden="true">
+                <div class="u" id="segU"></div><div class="n" id="segN"></div><div class="o" id="segO"></div><div class="ob" id="segOb"></div>
+              </div>
+              <div class="scale-labels"><span>Under 18.5</span><span>18.5–24.9</span><span>25–29.9</span><span>30+</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section class="schedule" id="schedule">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="tag">Class Schedule</span>
+            <h2 class="display">Today at <span class="accent">Anthem</span></h2>
+            <p>Pick a day to see its classes. Walk-ins welcome for trials — just reach 10 minutes early.</p>
+          </div>
+          <div class="day-tabs reveal" id="dayTabs" role="tablist" aria-label="Choose a day"></div>
+          <div class="slots reveal" id="slots"></div>
+        </div>
+      </section>
+
+      <!-- CTA + TRIAL -->
+      <section id="trial">
+        <div class="wrap">
+          <div class="cta-band reveal">
+            <h2 class="display">Your first 3 days are on us.</h2>
+            <p>Full floor access, one group class and a free fitness assessment — no card, no commitment. Fill the form and we will call you back to fix your slot.</p>
+            <a class="btn" href="https://wa.me/919999999999?text=Hi%20Anthem%20Gym!%20I%20want%20to%20claim%20my%203-day%20free%20trial." target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </div>
+          <div class="trial">
+            <form class="trial-form panel reveal" id="trialForm">
+              <h3 style="margin:0 0 4px; font-size:20px">Book your free trial</h3>
+              <input type="text" id="fName" placeholder="Your name" required autocomplete="name" />
+              <input type="tel" id="fPhone" placeholder="Mobile number" required pattern="[0-9+ -]{10,15}" autocomplete="tel" />
+              <select id="fGoal" required>
+                <option value="" disabled selected>Your goal</option>
+                <option>Weight loss</option>
+                <option>Muscle gain</option>
+                <option>Strength &amp; powerlifting</option>
+                <option>General fitness</option>
+                <option>Sports performance</option>
+              </select>
+              <button class="btn" type="submit" style="justify-content:center">Request Callback</button>
+              <p class="trial-note" id="formMsg">We usually call back within a few working hours (5 AM – 11 PM).</p>
+            </form>
+            <div class="visit reveal" id="visit">
+              <div class="row">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                <div><b>Visit the gym</b><span>Anthem Fitness Club — drop in for a full tour any day of the week.</span></div>
+              </div>
+              <div class="row">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+                <div><b>Opening hours</b><span>Open all 7 days · 5:00 AM – 11:00 PM</span></div>
+              </div>
+              <div class="row">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+                <div><b>Call or WhatsApp</b><span><a href="tel:+919999999999">+91 99999 99999</a> · fastest reply on WhatsApp</span></div>
+              </div>
+              <div class="row">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 15h4"/></svg>
+                <div><b>Follow the grind</b><span>Daily workouts, member transformations and offers — on our Instagram.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot">
+          <div>
+            <a class="logo" href="#top">
+              <span class="logo-mark">A</span>
+              <span><b>ANTHEM</b><small>FITNESS CLUB</small></span>
+            </a>
+            <p>Train hard. Stay humble. Look unstoppable. Anthem Gym — strength, cardio and functional training under one roof.</p>
+          </div>
+          <nav>
+            <a href="#zones">Training</a>
+            <a href="#trainers">Coaches</a>
+            <a href="#pricing">Membership</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#trial">Free Trial</a>
+          </nav>
+        </div>
+        <div class="fineprint">
+          <span>© 2026 Anthem Fitness Club. All rights reserved.</span>
+          <span>Website demo — plans, timings and photos are sample content for preview.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function(){
+        "use strict";
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        /* Nav */
+        var header = document.getElementById("topbar");
+        var burger = document.getElementById("burger");
+        var navLinks = document.getElementById("navLinks");
+        window.addEventListener("scroll", function(){
+          header.classList.toggle("scrolled", window.scrollY > 24);
+        }, {passive:true});
+        burger.addEventListener("click", function(){
+          var open = navLinks.classList.toggle("open");
+          burger.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        navLinks.addEventListener("click", function(e){
+          if(e.target.tagName === "A"){ navLinks.classList.remove("open"); }
+        });
+
+        /* Reveal on scroll */
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+          });
+        }, {threshold:.05, rootMargin:"0px 0px 120px 0px"});
+        document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+        /* Safety net: never leave content hidden (print, no-scroll captures) */
+        setTimeout(function(){
+          document.querySelectorAll(".reveal:not(.in)").forEach(function(el){ el.classList.add("in"); });
+        }, 2600);
+
+        /* Animated counters */
+        var counted = false;
+        function runCounters(){
+          if(counted) return; counted = true;
+          document.querySelectorAll("[data-count]").forEach(function(el){
+            var target = parseInt(el.getAttribute("data-count"), 10);
+            if(reduceMotion){ el.textContent = target.toLocaleString("en-IN"); return; }
+            var start = null;
+            function step(ts){
+              if(!start) start = ts;
+              var p = Math.min((ts - start) / 1400, 1);
+              var eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(target * eased).toLocaleString("en-IN");
+              if(p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          });
+        }
+        var statIO = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){ if(en.isIntersecting){ runCounters(); statIO.disconnect(); } });
+        }, {threshold:.4});
+        var statsEl = document.querySelector(".hero-stats");
+        if(statsEl) statIO.observe(statsEl);
+
+        /* 3D hero parallax (mouse) */
+        if(!reduceMotion && window.matchMedia("(pointer: fine)").matches){
+          var hero = document.querySelector(".hero");
+          var layers = hero.querySelectorAll("[data-depth]");
+          hero.addEventListener("mousemove", function(e){
+            var r = hero.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - .5;
+            var y = (e.clientY - r.top) / r.height - .5;
+            layers.forEach(function(l){
+              var d = parseFloat(l.getAttribute("data-depth"));
+              l.style.transform = "translate(" + (-x * d) + "px," + (-y * d) + "px)" + (l.classList.contains("hero-word") ? " translate(-50%,-50%)" : "");
+            });
+          });
+          hero.addEventListener("mouseleave", function(){
+            layers.forEach(function(l){
+              l.style.transform = l.classList.contains("hero-word") ? "translate(-50%,-50%)" : "";
+            });
+          });
+        }
+
+        /* 3D tilt cards */
+        function addTilt(el, max){
+          if(reduceMotion || !window.matchMedia("(pointer: fine)").matches) return;
+          var raf = null;
+          el.addEventListener("mousemove", function(e){
+            var r = el.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+            el.style.setProperty("--gx", (px * 100) + "%");
+            el.style.setProperty("--gy", (py * 100) + "%");
+            if(raf) cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(function(){
+              el.style.transform = "rotateY(" + ((px - .5) * max) + "deg) rotateX(" + ((.5 - py) * max) + "deg)";
+            });
+          });
+          el.addEventListener("mouseleave", function(){
+            if(raf) cancelAnimationFrame(raf);
+            el.style.transform = "";
+          });
+        }
+        document.querySelectorAll(".tilt").forEach(function(el){ addTilt(el, 10); });
+        document.querySelectorAll(".tilt-lite").forEach(function(el){ addTilt(el, 5); });
+        addTilt(document.getElementById("heroCard"), 13);
+        addTilt(document.getElementById("whyFrame"), 7);
+
+        /* Device-orientation-free gentle float for hero card on touch devices */
+        var heroCard = document.getElementById("heroCard");
+        if(heroCard && !window.matchMedia("(pointer: fine)").matches && !reduceMotion){
+          var t0 = null;
+          function floatCard(ts){
+            if(!t0) t0 = ts;
+            var t = (ts - t0) / 1000;
+            heroCard.style.transform = "rotateY(" + (Math.sin(t * .7) * 6) + "deg) rotateX(" + (Math.cos(t * .5) * 4) + "deg)";
+            requestAnimationFrame(floatCard);
+          }
+          requestAnimationFrame(floatCard);
+        }
+
+        /* BMI calculator */
+        var hR = document.getElementById("hRange"), wR = document.getElementById("wRange");
+        var hOut = document.getElementById("hOut"), wOut = document.getElementById("wOut");
+        var bmiVal = document.getElementById("bmiVal"), bmiCat = document.getElementById("bmiCat"), bmiTip = document.getElementById("bmiTip");
+        var segs = {u:document.getElementById("segU"), n:document.getElementById("segN"), o:document.getElementById("segO"), ob:document.getElementById("segOb")};
+        function updateBMI(){
+          var h = parseInt(hR.value, 10), w = parseInt(wR.value, 10);
+          hOut.textContent = h + " cm"; wOut.textContent = w + " kg";
+          var bmi = w / Math.pow(h / 100, 2);
+          bmiVal.textContent = bmi.toFixed(1);
+          var key, cat, tip, color;
+          if(bmi < 18.5){ key = "u"; cat = "Underweight"; color = "#3fa7ff";
+            tip = "Time to build. A calorie-surplus diet plan plus progressive strength training will add healthy mass."; }
+          else if(bmi < 25){ key = "n"; cat = "Healthy range"; color = "#39c26d";
+            tip = "You are in the healthy zone. Focus on strength progression and protein intake to build lean muscle."; }
+          else if(bmi < 30){ key = "o"; cat = "Overweight"; color = "#ffb01f";
+            tip = "A structured mix of strength training, cardio and a guided diet plan typically shows results in 8–12 weeks."; }
+          else { key = "ob"; cat = "Obese range"; color = "#ff5a1f";
+            tip = "Start guided, start safe. Our coaches will build a joint-friendly plan and track your progress monthly."; }
+          bmiCat.textContent = cat; bmiCat.style.color = color; bmiTip.textContent = tip;
+          Object.keys(segs).forEach(function(k){ segs[k].classList.toggle("on", k === key); });
+        }
+        hR.addEventListener("input", updateBMI);
+        wR.addEventListener("input", updateBMI);
+        updateBMI();
+
+        /* Schedule */
+        var scheduleData = {
+          "Mon": [
+            {t:"6:00 AM", n:"Power Yoga", c:"Studio A · 60 min · All levels"},
+            {t:"7:30 AM", n:"Strength Circuit", c:"Main Floor · 45 min · Coach-led"},
+            {t:"6:00 PM", n:"CrossFit WOD", c:"Functional Zone · 60 min · Intermediate+"},
+            {t:"7:30 PM", n:"Zumba Fitness", c:"Studio A · 60 min · All levels"}
+          ],
+          "Tue": [
+            {t:"6:00 AM", n:"Spin & Burn", c:"Cardio Deck · 45 min · All levels"},
+            {t:"7:30 AM", n:"Deadlift Club", c:"Power Zone · 60 min · Coach-led"},
+            {t:"6:00 PM", n:"HIIT Blast", c:"Functional Zone · 40 min · High intensity"},
+            {t:"7:30 PM", n:"Mobility & Stretch", c:"Studio B · 45 min · All levels"}
+          ],
+          "Wed": [
+            {t:"6:00 AM", n:"Power Yoga", c:"Studio A · 60 min · All levels"},
+            {t:"7:30 AM", n:"Upper Body Strength", c:"Main Floor · 45 min · Coach-led"},
+            {t:"6:00 PM", n:"Boxing Conditioning", c:"Functional Zone · 60 min · Intermediate+"},
+            {t:"7:30 PM", n:"Zumba Fitness", c:"Studio A · 60 min · All levels"}
+          ],
+          "Thu": [
+            {t:"6:00 AM", n:"Spin & Burn", c:"Cardio Deck · 45 min · All levels"},
+            {t:"7:30 AM", n:"Squat School", c:"Power Zone · 60 min · Coach-led"},
+            {t:"6:00 PM", n:"HIIT Blast", c:"Functional Zone · 40 min · High intensity"},
+            {t:"7:30 PM", n:"Yin Yoga", c:"Studio B · 60 min · All levels"}
+          ],
+          "Fri": [
+            {t:"6:00 AM", n:"Power Yoga", c:"Studio A · 60 min · All levels"},
+            {t:"7:30 AM", n:"Full Body Strength", c:"Main Floor · 45 min · Coach-led"},
+            {t:"6:00 PM", n:"CrossFit WOD", c:"Functional Zone · 60 min · Intermediate+"},
+            {t:"7:30 PM", n:"Dance Fitness", c:"Studio A · 60 min · All levels"}
+          ],
+          "Sat": [
+            {t:"7:00 AM", n:"Weekend Warrior WOD", c:"Functional Zone · 75 min · All levels"},
+            {t:"9:00 AM", n:"Open Mat & PR Attempts", c:"Power Zone · 120 min · Supervised"},
+            {t:"5:00 PM", n:"Zumba Party", c:"Studio A · 60 min · All levels"},
+            {t:"6:30 PM", n:"Mobility & Stretch", c:"Studio B · 45 min · All levels"}
+          ],
+          "Sun": [
+            {t:"7:00 AM", n:"Sunrise Yoga", c:"Studio A · 60 min · All levels"},
+            {t:"9:00 AM", n:"Guest Day — Bring a Friend", c:"Full Floor · Free for guests"},
+            {t:"11:00 AM", n:"Technique Clinic", c:"Power Zone · 60 min · Coach-led"},
+            {t:"5:00 PM", n:"Recovery & Steam", c:"Recovery Zone · Open session"}
+          ]
+        };
+        var dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+        var dayTabs = document.getElementById("dayTabs");
+        var slotsEl = document.getElementById("slots");
+        var today = dayNames[new Date().getDay()];
+        function renderDay(day){
+          dayTabs.querySelectorAll("button").forEach(function(b){
+            b.classList.toggle("active", b.getAttribute("data-day") === day);
+          });
+          slotsEl.innerHTML = "";
+          scheduleData[day].forEach(function(s){
+            var d = document.createElement("div");
+            d.className = "slot";
+            var time = document.createElement("div"); time.className = "time"; time.textContent = s.t;
+            var h = document.createElement("h3"); h.textContent = s.n;
+            var p = document.createElement("p"); p.textContent = s.c;
+            d.appendChild(time); d.appendChild(h); d.appendChild(p);
+            slotsEl.appendChild(d);
+          });
+        }
+        ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(function(day){
+          var b = document.createElement("button");
+          b.textContent = day === today ? day + " · Today" : day;
+          b.setAttribute("data-day", day);
+          b.setAttribute("role", "tab");
+          b.addEventListener("click", function(){ renderDay(day); });
+          dayTabs.appendChild(b);
+        });
+        renderDay(today);
+
+        /* Trial form -> WhatsApp hand-off (no fake submission) */
+        document.getElementById("trialForm").addEventListener("submit", function(e){
+          e.preventDefault();
+          var name = document.getElementById("fName").value.trim();
+          var phone = document.getElementById("fPhone").value.trim();
+          var goal = document.getElementById("fGoal").value;
+          var msg = document.getElementById("formMsg");
+          if(!name || !phone || !goal){
+            msg.textContent = "Please fill your name, mobile number and goal so we can call you back.";
+            msg.style.color = "#ff5a1f";
+            return;
+          }
+          var text = "Hi Anthem Gym! I'm " + name + ". My goal is " + goal +
+                     ". Please book my 3-day free trial. My number: " + phone;
+          window.open("https://wa.me/919999999999?text=" + encodeURIComponent(text), "_blank");
+          msg.textContent = "Opening WhatsApp with your details pre-filled — just hit send there and we will confirm your slot.";
+          msg.style.color = "";
+        });
+      })();
+    </script>
+  </body>
+</html>
